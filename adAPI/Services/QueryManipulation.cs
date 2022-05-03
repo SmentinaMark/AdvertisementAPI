@@ -5,20 +5,20 @@ namespace adAPI
 {
     public class QueryManipulation : IQueryManipulation<Advertisement, CollectionQueryParameters>
     {
-        public IQueryable<Advertisement> SearchAdvertisements(CollectionQueryParameters queryParameters, IQueryable<Advertisement> allAdvertisements)
+        public IQueryable<Advertisement> SearchItems(CollectionQueryParameters queryParameters, IQueryable<Advertisement> allAdvertisements)
         {
             return allAdvertisements.Where(x => x.Title.Contains(queryParameters.Search)
                 || x.Description.Contains(queryParameters.Search));
         }
 
-        public IQueryable<Advertisement> PagingAdvertisements(CollectionQueryParameters queryParameters, IQueryable<Advertisement> allAdvertisements)
+        public IQueryable<Advertisement> PagingItems(CollectionQueryParameters queryParameters, IQueryable<Advertisement> allAdvertisements)
         {
             return allAdvertisements.OrderBy(on => on.Title)
                 .Skip((queryParameters.PageNumber - 1) * queryParameters.PageSize)
                     .Take(queryParameters.PageSize);
         }
 
-        public IQueryable<Advertisement> SortAdvertisements(CollectionQueryParameters queryParameters, IQueryable<Advertisement> allAdvertisements)
+        public IQueryable<Advertisement> SortItems(CollectionQueryParameters queryParameters, IQueryable<Advertisement> allAdvertisements)
         {
             IQueryable<Advertisement> sortedMeetup = queryParameters.Sort switch
             {
@@ -34,10 +34,15 @@ namespace adAPI
 
         public Advertisement GetAdditionalFields(bool additionalFields, Advertisement advertisement)
         {
-            if (additionalFields == true)
+            if(advertisement == null)
+            {
+                return null;
+            }
+            if (additionalFields)
             {
                 advertisement.IsDescriptionSerialize = true;
                 advertisement.IsCreationDateSerialize = true;
+                advertisement.IsGetAllImages = true;
             }
 
             return advertisement;

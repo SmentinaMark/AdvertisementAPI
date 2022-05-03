@@ -1,36 +1,38 @@
 ﻿using adAPI.Contracts;
 using adAPI.Data;
 using adAPI.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace adAPI.Services
 {
-    public class DataManager : IDataManager<Advertisement>
+    public class DataManager : IDataManager<Advertisement, CollectionQueryParameters>
     {
         private readonly ApplicationDbContext _context;
         private readonly IQueryManipulation<Advertisement, CollectionQueryParameters> _queryManipulation;
 
-        public DataManager(ApplicationDbContext context , IQueryManipulation<Advertisement, CollectionQueryParameters> queryManipulation)
+        public DataManager(ApplicationDbContext context, IQueryManipulation<Advertisement, CollectionQueryParameters> queryManipulation)
         {
             _context = context;
             _queryManipulation = queryManipulation;
         }
 
-        public async Task<IEnumerable<Advertisement>> GetItemsAsync(CollectionQueryParameters queryParameters)
+        public List<Advertisement> GetItems(CollectionQueryParameters queryParameters)
         {
             var allAdvertisements = _context.Advertisements.AsQueryable();
 
-            if (string.IsNullOrWhiteSpace(queryParameters.Search))
+            if (allAdvertisements != null)
             {
-                allAdvertisements = _queryManipulation.PagingAdvertisements(queryParameters, allAdvertisements);
+                if (string.IsNullOrWhiteSpace(queryParameters.Search))
+                {
+                    allAdvertisements = _queryManipulation.PagingItems(queryParameters, allAdvertisements);
+                }
+                else
+                {
+                    allAdvertisements = _queryManipulation.SearchItems(queryParameters, allAdvertisements);
+                }
+                allAdvertisements = _queryManipulation.SortItems(queryParameters, allAdvertisements);
             }
-            else
-            {
-                allAdvertisements = _queryManipulation.SearchAdvertisements(queryParameters, allAdvertisements);
-            }
-            allAdvertisements = _queryManipulation.SortAdvertisements(queryParameters, allAdvertisements);
 
-            return await allAdvertisements.ToListAsync();
+            return allAdvertisements.ToList();
         }
 
         public Advertisement GetItemById(Guid id, bool additionalFields)
@@ -41,12 +43,13 @@ namespace adAPI.Services
             return advertisement;
         }
 
-        public async Task<Advertisement> AddItemAsync(Advertisement newItem)
+        public Advertisement AddItem(Advertisement newItem)
         {
             newItem.Id = Guid.NewGuid();
             newItem.CreationDate = DateTime.Now.Date;
+
             _context.Advertisements.Add(newItem);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
 
             return newItem;
         }
