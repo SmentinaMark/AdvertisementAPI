@@ -5,6 +5,7 @@ using adAPI.Models;
 using adAPI.Services;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,7 +27,19 @@ builder.Services.AddControllers()
     });
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+
+static string GetXmlCommentsPath()
+{
+    return String.Format(@"{0}\adAPI.XML", AppDomain.CurrentDomain.BaseDirectory);
+}
+
+builder.Services.AddSwaggerGen(c =>
+{
+    c.EnableAnnotations();
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Apdertisement API", Description = "THis API using for works with advertisements." , Version = "v1" });
+    c.IncludeXmlComments(GetXmlCommentsPath());
+});
 
 var app = builder.Build();
 
@@ -36,11 +49,6 @@ app.UseSwaggerUI(x =>
     x.SwaggerEndpoint("/swagger/v1/swagger.json", "ad API V1");
     x.RoutePrefix = String.Empty;
 });
-
-if (app.Environment.IsDevelopment())
-{
-
-}
 
 app.UseHttpsRedirection();
 
