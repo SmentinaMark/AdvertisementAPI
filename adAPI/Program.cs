@@ -9,7 +9,6 @@ using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("adAPI")));
 
@@ -26,7 +25,6 @@ builder.Services.AddControllers()
         fv.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
     });
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -37,12 +35,11 @@ app.UseSwaggerUI(x =>
 {
     x.SwaggerEndpoint("/swagger/v1/swagger.json", "ad API V1");
     x.RoutePrefix = String.Empty;
-    });
+});
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    
+
 }
 
 app.UseHttpsRedirection();
