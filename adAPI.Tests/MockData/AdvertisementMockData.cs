@@ -59,7 +59,7 @@ namespace adAPI.Tests.MockData
                 CreationDate = DateTime.Now
 
             };
-            advertisements.Add(advertisement);
+           
             return advertisement;
         }
 
