@@ -14,6 +14,9 @@ namespace adAPI.Models
         public DateTime CreationDate { get; set; }
 
         #region Images
+        /// <summary>
+        /// This field returns first item from array of Images[].
+        /// </summary>
         public string MainImage
         {
             get
@@ -30,6 +33,9 @@ namespace adAPI.Models
             }
         }
 
+        /// <summary>
+        /// Array of items returns deseriazided items from _Images and sets serialized value into _Image.
+        /// </summary>
         [NotMapped]
         public string[] Images
         {
@@ -43,11 +49,17 @@ namespace adAPI.Models
             }
         }
 
+        /// <summary>
+        /// This field is bind with the db column.
+        /// </summary>
         [JsonIgnore]
         public string _Images { get; set; } = string.Empty;
         #endregion
 
         #region ShouldSerialize
+        /// <summary>
+        /// Flag for displaying the description.
+        /// </summary>
         [NotMapped]
         [JsonIgnore]
         public bool IsDescriptionSerialize { get; set; }
@@ -63,6 +75,9 @@ namespace adAPI.Models
             }
         }
 
+        /// <summary>
+        /// Flag for displaying the date.
+        /// </summary>
         [NotMapped]
         [JsonIgnore]
         public bool IsCreationDateSerialize { get; set; }
@@ -78,6 +93,9 @@ namespace adAPI.Models
             }
         }
 
+        /// <summary>
+        /// Flag for displaying all images.
+        /// </summary>
         [NotMapped]
         [JsonIgnore]
         public bool IsGetAllImages { get; set; }

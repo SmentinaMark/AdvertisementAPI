@@ -15,6 +15,11 @@ namespace adAPI.Services
             _queryManipulation = queryManipulation;
         }
 
+        /// <summary>
+        /// The method allows to get the final list of advertisements.
+        /// </summary>
+        /// <param name="queryParameters">Object with query parameters for view finished collection.</param>
+        /// <returns>List of advertisements.</returns>
         public List<Advertisement> GetItems(CollectionQueryParameters queryParameters)
         {
             var allAdvertisements = _context.Advertisements.AsQueryable();
@@ -35,6 +40,12 @@ namespace adAPI.Services
             return allAdvertisements.ToList();
         }
 
+        /// <summary>
+        /// Allows to get item from context database by Id.
+        /// </summary>
+        /// <param name="id">Шd of the required element.</param>
+        /// <param name="additionalFields">flag for getting additional fields.</param>
+        /// <returns>Found object.</returns>
         public Advertisement GetItemById(Guid id, bool additionalFields)
         {
             var advertisement = _context.Advertisements.Find(id);
@@ -43,6 +54,11 @@ namespace adAPI.Services
             return advertisement;
         }
 
+        /// <summary>
+        /// Allows to Add new Item.
+        /// </summary>
+        /// <param name="newItem">Item for adding into database context.</param>
+        /// <returns>Created item.</returns>
         public Advertisement AddItem(Advertisement newItem)
         {
             newItem.Id = Guid.NewGuid();
