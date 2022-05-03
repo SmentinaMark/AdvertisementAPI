@@ -114,6 +114,26 @@ namespace adAPI.Tests.Services.Tests
             mock.Verify(_ => _.GetAdditionalFields(It.IsAny<bool>(), It.IsAny<Advertisement>()), Times.Once);
         }
 
+        [Fact]
+        public void AddItem_NewCountItems()
+        {
+            ///Arrange
+            AdvertisementMockData data = new AdvertisementMockData();
+            var fakeData = data.GetAdvertisements();
+            var mock = new Mock<IQueryManipulation<Advertisement, CollectionQueryParameters>>();
+
+            _context.Advertisements.AddRange(fakeData);
+            _context.SaveChanges();
+
+            var service = new DataManager(_context, mock.Object);
+
+            ///Act
+            service.AddItem(data.AddCorrectAdvertisement());
+
+            ///Assert
+            Assert.Equal(3, _context.Advertisements.Count());
+            Assert.NotEqual(2, _context.Advertisements.Count());
+        }
 
         public void Dispose()
         {
