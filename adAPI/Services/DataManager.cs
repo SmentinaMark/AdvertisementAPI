@@ -49,7 +49,11 @@ namespace adAPI.Services
         public Advertisement GetItemById(Guid id, bool additionalFields)
         {
             var advertisement = _context.Advertisements.Find(id);
-            advertisement = _queryManipulation.GetAdditionalFields(additionalFields, advertisement);
+
+            if(additionalFields)
+            {
+                advertisement = _queryManipulation.GetAdditionalFields(additionalFields, advertisement);
+            }
 
             return advertisement;
         }
