@@ -10,7 +10,7 @@ namespace adAPI.Tests.MockData
         {
                 new Advertisement
                 {
-                    Id = Guid.NewGuid(),
+                    Id = Guid.Parse("01C19C72-31C3-4A85-85BD-CA8F99A10E11"),
                     Title = "01C19C72-31C3-4A85-85BD-CA8F99A10E11",
                     Description = "FirstAdDescription",
                     Price = 125,
