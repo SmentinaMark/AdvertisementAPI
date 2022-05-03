@@ -12,6 +12,7 @@
         "description": "Name of the resource group for the resource. It is recommended to put resources under same resource group for better tracking."
       }
     },
+
     "resourceGroupLocation": {
       "type": "string",
       "defaultValue": "westeurope",

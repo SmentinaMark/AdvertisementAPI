@@ -10,6 +10,7 @@
         "description": "Имя группы ресурсов для ресурса. Рекомендуется поместить ресурсы в одну группу ресурсов для более удобного отслеживания."
       }
     },
+
     "resourceGroupLocation": {
       "type": "string",
       "defaultValue": "westeurope",
