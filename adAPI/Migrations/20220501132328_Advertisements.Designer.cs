@@ -12,8 +12,8 @@ using adAPI.Data;
 namespace adAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220430093503_Date Field")]
-    partial class DateField
+    [Migration("20220501132328_Advertisements")]
+    partial class Advertisements
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -36,14 +36,15 @@ namespace adAPI.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Image")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("_Images")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Images");
 
                     b.HasKey("Id");
 
