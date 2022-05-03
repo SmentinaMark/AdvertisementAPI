@@ -1,9 +1,6 @@
 ﻿using adAPI.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace adAPI.Tests.MockData
 {
@@ -17,7 +14,7 @@ namespace adAPI.Tests.MockData
                     Title = "01C19C72-31C3-4A85-85BD-CA8F99A10E11",
                     Description = "FirstAdDescription",
                     Price = 125,
-                    CreationDate = DateTime.Now 
+                    CreationDate = DateTime.Now
                 },
                 new Advertisement
                 {
@@ -29,7 +26,7 @@ namespace adAPI.Tests.MockData
                 },
          };
 
-        public  List<Advertisement> GetAdvertisements()
+        public List<Advertisement> GetAdvertisements()
         {
             return advertisements;
         }
@@ -58,9 +55,9 @@ namespace adAPI.Tests.MockData
                 Id = Guid.NewGuid(),
                 Title = "ThirdAdTitle",
                 Description = "ThirdAdDescription",
-                Price = 125, 
-                CreationDate = DateTime.Now 
-            
+                Price = 125,
+                CreationDate = DateTime.Now
+
             };
             advertisements.Add(advertisement);
             return advertisement;

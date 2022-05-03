@@ -52,6 +52,7 @@ namespace adAPI.Tests
 
         }
 
+
         [Fact]
         public void GetAdvertisement_ShouldReturn200()
         {
