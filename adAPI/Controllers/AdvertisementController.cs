@@ -1,26 +1,29 @@
 ﻿using adAPI.Contracts;
-using adAPI.Data;
 using adAPI.Models;
-using Microsoft.AspNetCore.Http;
+using adAPI.Validation;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
 namespace adAPI.Controllers
 {
-    [Route("api/advertisement")]
+    [Route("api/advertisements")]
     [ApiController]
     public class AdvertisementController : ControllerBase
     {
-        private readonly IDataManager<Advertisement> _dataManager;
-        public AdvertisementController(IDataManager<Advertisement> dataManager)
+        private readonly IDataManager<Advertisement, CollectionQueryParameters> _dataManager;
+        private readonly AdvertisementValidator _validator;
+        public AdvertisementController(IDataManager<Advertisement, CollectionQueryParameters> dataManager)
         {
             _dataManager = dataManager;
+            _validator = new AdvertisementValidator();
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAdvertisements([FromQuery]CollectionQueryParameters queryParameters)
+        public IActionResult GetAdvertisements([FromQuery] CollectionQueryParameters queryParameters)
         {
-            var advertisements = await _dataManager.GetItemsAsync(queryParameters);
+            var advertisements = _dataManager.GetItems(queryParameters);
+            if (advertisements.Count == 0)
+            {
+                return NoContent();
+            }
 
             return Ok(advertisements);
         }
@@ -30,18 +33,26 @@ namespace adAPI.Controllers
         {
             var advertisement = _dataManager.GetItemById(id, additionalFields);
 
-            return Ok(advertisement);
+            if (advertisement != null && advertisement.Id == id)
+            {
+                return Ok(advertisement);
+            }
+
+            return NotFound();
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostAdvertisement(Advertisement newAdvertisement)
+        public IActionResult PostAdvertisement(Advertisement newAdvertisement)
         {
-            var advertisement = await _dataManager.AddItemAsync(newAdvertisement);
-            if(advertisement == null)
+            var validResult = _validator.Validate(newAdvertisement);
+
+            if (validResult.IsValid)
             {
-                return BadRequest(advertisement.Id);
+                var advertisement = _dataManager.AddItem(newAdvertisement);
+                return CreatedAtAction(nameof(PostAdvertisement), newAdvertisement.Id);
             }
-            return CreatedAtAction(nameof(PostAdvertisement), advertisement.Id);
+
+            return BadRequest(newAdvertisement.Id);
         }
     }
 }
