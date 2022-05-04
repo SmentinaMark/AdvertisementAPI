@@ -73,7 +73,7 @@ namespace adAPI.Controllers
 
             if (validResult.IsValid)
             {
-                var advertisement = _dataManager.AddItem(newAdvertisement);
+                _dataManager.AddItem(newAdvertisement);
                 return CreatedAtAction(nameof(PostAdvertisement), newAdvertisement.Id);
             }
 

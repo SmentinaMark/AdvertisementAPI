@@ -1,6 +1,7 @@
 using adAPI;
 using adAPI.Contracts;
 using adAPI.Data;
+using adAPI.Data.Repositories;
 using adAPI.Models;
 using adAPI.Services;
 using FluentValidation.AspNetCore;
@@ -10,14 +11,12 @@ using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-
-
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("adAPI")));
 
 builder.Services.AddScoped<IDataManager, DataManager>();
 builder.Services.AddScoped<IQueryManipulation, QueryManipulation>();
+builder.Services.AddScoped<IRepository<Advertisement>, AdvertisementRepository>();
 
 builder.Services.AddControllers()
     .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
