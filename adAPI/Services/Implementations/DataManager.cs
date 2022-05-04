@@ -11,8 +11,8 @@ namespace adAPI.Services
 
         public DataManager(ApplicationDbContext context, IQueryManipulation queryManipulation)
         {
-            _context = context;
-            _queryManipulation = queryManipulation;
+            _context = context ?? throw new ArgumentNullException(nameof(context));
+            _queryManipulation = queryManipulation ?? throw new ArgumentNullException(nameof(queryManipulation));
         }
 
         /// <summary>
