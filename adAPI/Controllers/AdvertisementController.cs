@@ -18,7 +18,7 @@ namespace adAPI.Controllers
         private readonly AdvertisementValidator _validator;
         public AdvertisementController(IDataManager dataManager)
         {
-            _dataManager = dataManager;
+            _dataManager = dataManager ?? throw new ArgumentNullException(nameof(dataManager));
             _validator = new AdvertisementValidator();
         }
 
