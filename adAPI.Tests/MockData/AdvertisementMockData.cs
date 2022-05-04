@@ -26,6 +26,111 @@ namespace adAPI.Tests.MockData
                 },
          };
 
+        List<Advertisement> advertisementsForPaging = new List<Advertisement>
+        {
+                new Advertisement
+                {
+                    Id = Guid.Parse("01C19C72-31C3-4A85-85BD-CA8F99A10E11"),
+                    Title = "01C19C72-31C3-4A85-85BD-CA8F99A10E11",
+                    Description = "FirstAdDescription",
+                    Price = 125,
+                    CreationDate = DateTime.Now
+                },
+                new Advertisement
+                {
+                    Id = Guid.NewGuid(),
+                    Title = "SecondAdTitle",
+                    Description = "SecondAdDescription",
+                    Price = 14124,
+                    CreationDate = DateTime.Now
+                },
+                new Advertisement
+                {
+                    Id = Guid.NewGuid(),
+                    Title = "SecondAdTitle",
+                    Description = "SecondAdDescription",
+                    Price = 14124,
+                    CreationDate = DateTime.Now
+                },
+                new Advertisement
+                {
+                    Id = Guid.NewGuid(),
+                    Title = "SecondAdTitle",
+                    Description = "SecondAdDescription",
+                    Price = 14124,
+                    CreationDate = DateTime.Now
+                },
+                new Advertisement
+                {
+                    Id = Guid.NewGuid(),
+                    Title = "SecondAdTitle",
+                    Description = "SecondAdDescription",
+                    Price = 14124,
+                    CreationDate = DateTime.Now
+                },
+                new Advertisement
+                {
+                    Id = Guid.NewGuid(),
+                    Title = "SecondAdTitle",
+                    Description = "SecondAdDescription",
+                    Price = 14124,
+                    CreationDate = DateTime.Now
+                },
+                new Advertisement
+                {
+                    Id = Guid.NewGuid(),
+                    Title = "SecondAdTitle",
+                    Description = "SecondAdDescription",
+                    Price = 14124,
+                    CreationDate = DateTime.Now
+                },
+                new Advertisement
+                {
+                    Id = Guid.NewGuid(),
+                    Title = "SecondAdTitle",
+                    Description = "SecondAdDescription",
+                    Price = 14124,
+                    CreationDate = DateTime.Now
+                },
+                new Advertisement
+                {
+                    Id = Guid.NewGuid(),
+                    Title = "SecondAdTitle",
+                    Description = "SecondAdDescription",
+                    Price = 14124,
+                    CreationDate = DateTime.Now
+                },
+                new Advertisement
+                {
+                    Id = Guid.NewGuid(),
+                    Title = "SecondAdTitle",
+                    Description = "SecondAdDescription",
+                    Price = 14124,
+                    CreationDate = DateTime.Now
+                },
+                new Advertisement
+                {
+                    Id = Guid.NewGuid(),
+                    Title = "SecondAdTitle",
+                    Description = "SecondAdDescription",
+                    Price = 14124,
+                    CreationDate = DateTime.Now
+                },
+                new Advertisement
+                {
+                    Id = Guid.NewGuid(),
+                    Title = "SecondAdTitle",
+                    Description = "SecondAdDescription",
+                    Price = 14124,
+                    CreationDate = DateTime.Now
+                },
+         };
+
+        public List<Advertisement> GetAdvertisementsForPaging()
+        {
+            return advertisementsForPaging;
+        }
+
         public List<Advertisement> GetAdvertisements()
         {
             return advertisements;
@@ -68,25 +173,23 @@ namespace adAPI.Tests.MockData
             return new Advertisement();
         }
 
-        public CollectionQueryParameters SetCollectionParamaters()
+        public CollectionQueryParameters SetCollectionParamaters(int page)
         {
             CollectionQueryParameters parameters = new CollectionQueryParameters
             {
-                PageNumber = 1,
-                PageSize = 10,
+                PageNumber = page,
                 Search = "",
                 Sort = ""
             };
             return parameters;
         }
 
-        public CollectionQueryParameters SetCollectionParamatersWithSearch()
+        public CollectionQueryParameters SetCollectionParamatersWithSearch(string search)
         {
             CollectionQueryParameters parameters = new CollectionQueryParameters
             {
                 PageNumber = 1,
-                PageSize = 10,
-                Search = "First",
+                Search = search,
                 Sort = ""
             };
             return parameters;

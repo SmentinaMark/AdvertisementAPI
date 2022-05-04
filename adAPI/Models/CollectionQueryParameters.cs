@@ -10,12 +10,12 @@ namespace adAPI.Models
         private int _pageSize = 10;
 
         /// <summary>
-        /// Allow to navigate through pages. Optional parameter. Default value = 1.
+        /// Allows to navigate through pages. Optional parameter. Default value = 1.
         /// </summary>
         public int PageNumber { get; set; } = 1;
 
         /// <summary>
-        /// Allow to set count of elements of the page. Optional parameter. Default value = 10. Max value = 50;
+        /// Allows to set count of elements of the page. Optional parameter. Default value = 10. Max value = 50;
         /// </summary>
         public int PageSize
         {

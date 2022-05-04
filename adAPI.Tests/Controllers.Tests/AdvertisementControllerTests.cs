@@ -17,7 +17,7 @@ namespace adAPI.Tests
         {
             ///Arrange
             AdvertisementMockData data = new AdvertisementMockData();
-            Mock<IDataManager<Advertisement, CollectionQueryParameters>> dataManager = new Mock<IDataManager<Advertisement, CollectionQueryParameters>>();
+            Mock<IDataManager> dataManager = new Mock<IDataManager>();
 
             dataManager.Setup(_ => _.GetItems(It.IsAny<CollectionQueryParameters>()))
                 .Returns(data.GetAdvertisements());
@@ -37,7 +37,7 @@ namespace adAPI.Tests
         {
             ///Arrange
             AdvertisementMockData data = new AdvertisementMockData();
-            Mock<IDataManager<Advertisement, CollectionQueryParameters>> dataManager = new Mock<IDataManager<Advertisement, CollectionQueryParameters>>();
+            Mock<IDataManager> dataManager = new Mock<IDataManager>();
 
             dataManager.Setup(_ => _.GetItems(It.IsAny<CollectionQueryParameters>()))
                 .Returns(data.GetEmptyAdvertisements());
@@ -52,13 +52,12 @@ namespace adAPI.Tests
 
         }
 
-
         [Fact]
         public void GetAdvertisement_ShouldReturn200()
         {
             ///Arrange
             AdvertisementMockData data = new AdvertisementMockData();
-            Mock<IDataManager<Advertisement, CollectionQueryParameters>> dataManager = new Mock<IDataManager<Advertisement, CollectionQueryParameters>>();
+            Mock<IDataManager> dataManager = new Mock<IDataManager>();
 
             dataManager.Setup(_ => _.GetItemById(It.IsAny<Guid>(), It.IsAny<bool>()))
                 .Returns(data.GetSingleAdvertisement());
@@ -78,7 +77,7 @@ namespace adAPI.Tests
         {
             ///Arrange
             AdvertisementMockData data = new AdvertisementMockData();
-            Mock<IDataManager<Advertisement, CollectionQueryParameters>> dataManager = new Mock<IDataManager<Advertisement, CollectionQueryParameters>>();
+            Mock<IDataManager> dataManager = new Mock<IDataManager>();
 
             dataManager.Setup(_ => _.GetItemById(It.IsAny<Guid>(), It.IsAny<bool>()))
                 .Returns(data.GetSingleAdvertisement());
@@ -98,7 +97,7 @@ namespace adAPI.Tests
         {
             ///Arrange
             AdvertisementMockData data = new AdvertisementMockData();
-            Mock<IDataManager<Advertisement, CollectionQueryParameters>> dataManager = new Mock<IDataManager<Advertisement, CollectionQueryParameters>>();
+            Mock<IDataManager> dataManager = new Mock<IDataManager>();
             Advertisement newAdvertisement = data.AddCorrectAdvertisement();
 
             var controller = new AdvertisementController(dataManager.Object);
@@ -115,7 +114,7 @@ namespace adAPI.Tests
         {
             ///Arrange
             AdvertisementMockData data = new AdvertisementMockData();
-            Mock<IDataManager<Advertisement, CollectionQueryParameters>> dataManager = new Mock<IDataManager<Advertisement, CollectionQueryParameters>>();
+            Mock<IDataManager> dataManager = new Mock<IDataManager>();
             Advertisement newAdvertisement = data.AddEmptyAdvertisement();
 
             var controller = new AdvertisementController(dataManager.Object);

@@ -4,15 +4,15 @@ using adAPI.Models;
 
 namespace adAPI.Services
 {
-    public class DataManager : IDataManager<Advertisement, CollectionQueryParameters>
+    public class DataManager : IDataManager
     {
         private readonly ApplicationDbContext _context;
-        private readonly IQueryManipulation<Advertisement, CollectionQueryParameters> _queryManipulation;
+        private readonly IQueryManipulation _queryManipulation;
 
-        public DataManager(ApplicationDbContext context, IQueryManipulation<Advertisement, CollectionQueryParameters> queryManipulation)
+        public DataManager(ApplicationDbContext context, IQueryManipulation queryManipulation)
         {
-            _context = context;
-            _queryManipulation = queryManipulation;
+            _context = context ?? throw new ArgumentNullException(nameof(context));
+            _queryManipulation = queryManipulation ?? throw new ArgumentNullException(nameof(queryManipulation));
         }
 
         /// <summary>

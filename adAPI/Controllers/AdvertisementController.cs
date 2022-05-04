@@ -3,6 +3,7 @@ using adAPI.Models;
 using adAPI.Validation;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
+using System.Net;
 
 namespace adAPI.Controllers
 {
@@ -13,11 +14,11 @@ namespace adAPI.Controllers
     [ApiController]
     public class AdvertisementController : ControllerBase
     {
-        private readonly IDataManager<Advertisement, CollectionQueryParameters> _dataManager;
+        private readonly IDataManager _dataManager;
         private readonly AdvertisementValidator _validator;
-        public AdvertisementController(IDataManager<Advertisement, CollectionQueryParameters> dataManager)
+        public AdvertisementController(IDataManager dataManager)
         {
-            _dataManager = dataManager;
+            _dataManager = dataManager ?? throw new ArgumentNullException(nameof(dataManager));
             _validator = new AdvertisementValidator();
         }
 
@@ -27,6 +28,8 @@ namespace adAPI.Controllers
         /// <param name="queryParameters">Object with query parameters for view finished collection.</param>
         /// <returns>200 with list of items or 204</returns>
         [HttpGet]
+        [SwaggerResponse((int)HttpStatusCode.OK)]
+        [SwaggerResponse((int)HttpStatusCode.NoContent)]
         public IActionResult GetAdvertisements([FromQuery] CollectionQueryParameters queryParameters)
         {
             var advertisements = _dataManager.GetItems(queryParameters);
@@ -45,6 +48,8 @@ namespace adAPI.Controllers
         /// <param name="additionalFields">Flag for adding additional fields.</param>
         /// <returns>200 with object or 404</returns>
         [HttpGet("{id}")]
+        [SwaggerResponse((int)HttpStatusCode.OK)]
+        [SwaggerResponse((int)HttpStatusCode.NotFound)]
         public IActionResult GetAdvertisement(Guid id, bool additionalFields)
         {
             var advertisement = _dataManager.GetItemById(id, additionalFields);
@@ -63,6 +68,8 @@ namespace adAPI.Controllers
         /// <param name="newAdvertisement">Object to adding into the Db.</param>
         /// <returns>201 with Id or 400 with Id</returns>
         [HttpPost]
+        [SwaggerResponse((int)HttpStatusCode.Created)]
+        [SwaggerResponse((int)HttpStatusCode.BadRequest)]
         public IActionResult PostAdvertisement(Advertisement newAdvertisement)
         {
             var validResult = _validator.Validate(newAdvertisement);
