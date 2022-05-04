@@ -13,8 +13,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("adAPI")));
 
-builder.Services.AddScoped<IDataManager<Advertisement, CollectionQueryParameters>, DataManager>();
-builder.Services.AddScoped<IQueryManipulation<Advertisement, CollectionQueryParameters>, QueryManipulation>();
+builder.Services.AddScoped<IDataManager, DataManager>();
+builder.Services.AddScoped<IQueryManipulation, QueryManipulation>();
 
 builder.Services.AddControllers()
     .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
