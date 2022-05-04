@@ -13,8 +13,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("adAPI")));
 
-builder.Services.AddScoped<IDataManager, DataManager>();
-builder.Services.AddScoped<IQueryManipulation, QueryManipulation>();
+builder.Services.AddScoped<IDataManager<Advertisement, CollectionQueryParameters>, DataManager>();
+builder.Services.AddScoped<IQueryManipulation<Advertisement, CollectionQueryParameters>, QueryManipulation>();
 
 builder.Services.AddControllers()
     .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
@@ -37,7 +37,7 @@ static string GetXmlCommentsPath()
 builder.Services.AddSwaggerGen(c =>
 {
     c.EnableAnnotations();
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Advertisement API", Description = "This API using for works with advertisements." , Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Apdertisement API", Description = "THis API using for works with advertisements." , Version = "v1" });
     c.IncludeXmlComments(GetXmlCommentsPath());
 });
 

@@ -3,7 +3,7 @@ using adAPI.Models;
 
 namespace adAPI
 {
-    public class QueryManipulation : IQueryManipulation
+    public class QueryManipulation : IQueryManipulation<Advertisement, CollectionQueryParameters>
     {
         /// <summary>
         /// The method allows to search items.

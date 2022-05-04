@@ -7,7 +7,10 @@ using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace adAPI.Tests.Services.Tests
@@ -32,17 +35,17 @@ namespace adAPI.Tests.Services.Tests
             ///Arrange
             AdvertisementMockData data = new AdvertisementMockData();
             var fakeData = data.GetAdvertisements();
-            var mock = new Mock<IQueryManipulation>();
+            var mock = new Mock<IQueryManipulation<Advertisement, CollectionQueryParameters>>();
             mock.Setup(x => x.PagingItems(It.IsAny<CollectionQueryParameters>(), It.IsAny<IQueryable<Advertisement>>())).Returns(fakeData.AsQueryable());
             mock.Setup(x => x.SortItems(It.IsAny<CollectionQueryParameters>(), It.IsAny<IQueryable<Advertisement>>())).Returns(fakeData.AsQueryable());
-
+            
             _context.Advertisements.AddRange(fakeData);
             _context.SaveChanges();
 
             var service = new DataManager(_context, mock.Object);
 
             ///Act
-            var result = service.GetItems(data.SetCollectionParamaters(1));
+            var result = service.GetItems(data.SetCollectionParamaters());
 
             ///Assert
             result.Should().HaveCount(data.GetAdvertisements().Count);
@@ -54,7 +57,7 @@ namespace adAPI.Tests.Services.Tests
             ///Arrange
             AdvertisementMockData data = new AdvertisementMockData();
             var fakeData = data.GetAdvertisements();
-            var mock = new Mock<IQueryManipulation>();
+            var mock = new Mock<IQueryManipulation<Advertisement, CollectionQueryParameters>>();
             mock.Setup(_ => _.SearchItems(It.IsAny<CollectionQueryParameters>(), It.IsAny<IQueryable<Advertisement>>())).Returns(fakeData.AsQueryable());
             mock.Setup(_ => _.SortItems(It.IsAny<CollectionQueryParameters>(), It.IsAny<IQueryable<Advertisement>>())).Returns(fakeData.AsQueryable());
 
@@ -64,7 +67,7 @@ namespace adAPI.Tests.Services.Tests
             var service = new DataManager(_context, mock.Object);
 
             ///Act
-            service.GetItems(data.SetCollectionParamatersWithSearch("First"));
+            service.GetItems(data.SetCollectionParamatersWithSearch());
 
             ///Assert
             mock.Verify(_ => _.SearchItems(It.IsAny<CollectionQueryParameters>(), It.IsAny<IQueryable<Advertisement>>()), Times.Once);
@@ -76,7 +79,7 @@ namespace adAPI.Tests.Services.Tests
             ///Arrange
             AdvertisementMockData data = new AdvertisementMockData();
             var fakeData = data.GetAdvertisements();
-            var mock = new Mock<IQueryManipulation>();
+            var mock = new Mock<IQueryManipulation<Advertisement, CollectionQueryParameters>>();
 
             _context.Advertisements.AddRange(fakeData);
             _context.SaveChanges();
@@ -97,7 +100,7 @@ namespace adAPI.Tests.Services.Tests
             ///Arrange
             AdvertisementMockData data = new AdvertisementMockData();
             var fakeData = data.GetAdvertisements();
-            var mock = new Mock<IQueryManipulation>();
+            var mock = new Mock<IQueryManipulation<Advertisement, CollectionQueryParameters>>();
 
             _context.Advertisements.AddRange(fakeData);
             _context.SaveChanges();
@@ -117,7 +120,7 @@ namespace adAPI.Tests.Services.Tests
             ///Arrange
             AdvertisementMockData data = new AdvertisementMockData();
             var fakeData = data.GetAdvertisements();
-            var mock = new Mock<IQueryManipulation>();
+            var mock = new Mock<IQueryManipulation<Advertisement, CollectionQueryParameters>>();
 
             _context.Advertisements.AddRange(fakeData);
             _context.SaveChanges();
