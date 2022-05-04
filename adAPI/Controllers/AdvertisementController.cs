@@ -13,9 +13,9 @@ namespace adAPI.Controllers
     [ApiController]
     public class AdvertisementController : ControllerBase
     {
-        private readonly IDataManager<Advertisement, CollectionQueryParameters> _dataManager;
+        private readonly IDataManager _dataManager;
         private readonly AdvertisementValidator _validator;
-        public AdvertisementController(IDataManager<Advertisement, CollectionQueryParameters> dataManager)
+        public AdvertisementController(IDataManager dataManager)
         {
             _dataManager = dataManager;
             _validator = new AdvertisementValidator();
