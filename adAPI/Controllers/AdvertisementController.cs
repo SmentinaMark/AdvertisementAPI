@@ -3,6 +3,7 @@ using adAPI.Models;
 using adAPI.Validation;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
+using System.Net;
 
 namespace adAPI.Controllers
 {
@@ -25,8 +26,9 @@ namespace adAPI.Controllers
         /// The endpoint allows to get the final list of advertisements.
         /// </summary>
         /// <param name="queryParameters">Object with query parameters for view finished collection.</param>
-        /// <returns>200 with list of items or 204</returns>
         [HttpGet]
+        [SwaggerResponse((int)HttpStatusCode.OK)]
+        [SwaggerResponse((int)HttpStatusCode.NoContent)]
         public IActionResult GetAdvertisements([FromQuery] CollectionQueryParameters queryParameters)
         {
             var advertisements = _dataManager.GetItems(queryParameters);
@@ -43,8 +45,9 @@ namespace adAPI.Controllers
         /// </summary>
         /// <param name="id">Item Id.</param>
         /// <param name="additionalFields">Flag for adding additional fields.</param>
-        /// <returns>200 with object or 404</returns>
         [HttpGet("{id}")]
+        [SwaggerResponse((int)HttpStatusCode.OK)]
+        [SwaggerResponse((int)HttpStatusCode.NotFound, type: typeof(ProblemDetails))]
         public IActionResult GetAdvertisement(Guid id, bool additionalFields)
         {
             var advertisement = _dataManager.GetItemById(id, additionalFields);
@@ -63,6 +66,8 @@ namespace adAPI.Controllers
         /// <param name="newAdvertisement">Object to adding into the Db.</param>
         /// <returns>201 with Id or 400 with Id</returns>
         [HttpPost]
+        [SwaggerResponse((int)HttpStatusCode.Created)]
+        [SwaggerResponse((int)HttpStatusCode.BadRequest, type: typeof(ProblemDetails))]
         public IActionResult PostAdvertisement(Advertisement newAdvertisement)
         {
             var validResult = _validator.Validate(newAdvertisement);
