@@ -64,7 +64,6 @@ namespace adAPI.Controllers
         /// The endpoint allows you to post new advertisement of advertisements.
         /// </summary>
         /// <param name="newAdvertisement">Object to adding into the Db.</param>
-        /// <returns>201 with Id or 400 with Id</returns>
         [HttpPost]
         [SwaggerResponse((int)HttpStatusCode.Created)]
         [SwaggerResponse((int)HttpStatusCode.BadRequest, type: typeof(ProblemDetails))]
