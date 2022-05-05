@@ -129,7 +129,7 @@ namespace adAPI.Tests.MockData
             };
         }
 
-        public Advertisement AddEmptyAdvertisement()
+        public Advertisement GetEmptyAdvertisement()
         {
             return new Advertisement();
         }
