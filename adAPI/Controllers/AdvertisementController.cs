@@ -1,5 +1,4 @@
-﻿using adAPI.Contracts;
-using adAPI.Models;
+﻿using adAPI.Models;
 using adAPI.Services;
 using adAPI.Validation;
 using Microsoft.AspNetCore.Mvc;
