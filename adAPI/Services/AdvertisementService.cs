@@ -1,18 +1,17 @@
 ﻿using adAPI.Contracts;
-using adAPI.Data;
+using adAPI.Data.Repositories;
 using adAPI.Models;
 
 namespace adAPI.Services
 {
-    public class DataManager : IDataManager
+    public class AdvertisementService
     {
-        private readonly ApplicationDbContext _context;
-        private readonly IQueryManipulation _queryManipulation;
-
-        public DataManager(ApplicationDbContext context, IQueryManipulation queryManipulation)
+        private IRepository<Advertisement> _repository;
+        private IQueryManipulation _queryManipulation;
+        public AdvertisementService(IRepository<Advertisement> repository, IQueryManipulation queryManipulation)
         {
-            _context = context ?? throw new ArgumentNullException(nameof(context));
-            _queryManipulation = queryManipulation ?? throw new ArgumentNullException(nameof(queryManipulation));
+            _repository = repository;
+            _queryManipulation = queryManipulation;
         }
 
         /// <summary>
@@ -22,7 +21,7 @@ namespace adAPI.Services
         /// <returns>List of advertisements.</returns>
         public List<Advertisement> GetItems(CollectionQueryParameters queryParameters)
         {
-            var allAdvertisements = _context.Advertisements.AsQueryable();
+            var allAdvertisements = _repository.GetItems().AsQueryable();
 
             if (allAdvertisements != null)
             {
@@ -48,9 +47,9 @@ namespace adAPI.Services
         /// <returns>Found object.</returns>
         public Advertisement GetItemById(Guid id, bool additionalFields)
         {
-            var advertisement = _context.Advertisements.Find(id);
+            var advertisement = _repository.GetItemById(id);
 
-            if(additionalFields)
+            if (additionalFields)
             {
                 advertisement = _queryManipulation.GetAdditionalFields(additionalFields, advertisement);
             }
@@ -68,8 +67,8 @@ namespace adAPI.Services
             newItem.Id = Guid.NewGuid();
             newItem.CreationDate = DateTime.Now.Date;
 
-            _context.Advertisements.Add(newItem);
-            _context.SaveChanges();
+            _repository.AddItem(newItem);
+            _repository.Save();
 
             return newItem;
         }

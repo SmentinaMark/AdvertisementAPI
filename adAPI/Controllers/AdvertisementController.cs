@@ -1,5 +1,6 @@
 ﻿using adAPI.Contracts;
 using adAPI.Models;
+using adAPI.Services;
 using adAPI.Validation;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -14,11 +15,11 @@ namespace adAPI.Controllers
     [ApiController]
     public class AdvertisementController : ControllerBase
     {
-        private readonly IDataManager _dataManager;
+        private readonly AdvertisementService _service;
         private readonly AdvertisementValidator _validator;
-        public AdvertisementController(IDataManager dataManager)
+        public AdvertisementController(AdvertisementService service)
         {
-            _dataManager = dataManager ?? throw new ArgumentNullException(nameof(dataManager));
+            _service = service ?? throw new ArgumentNullException(nameof(service));
             _validator = new AdvertisementValidator();
         }
 
@@ -31,7 +32,7 @@ namespace adAPI.Controllers
         [SwaggerResponse((int)HttpStatusCode.NoContent)]
         public IActionResult GetAdvertisements([FromQuery] CollectionQueryParameters queryParameters)
         {
-            var advertisements = _dataManager.GetItems(queryParameters);
+            var advertisements = _service.GetItems(queryParameters);
             if (advertisements.Count == 0)
             {
                 return NoContent();
@@ -50,7 +51,7 @@ namespace adAPI.Controllers
         [SwaggerResponse((int)HttpStatusCode.NotFound, type: typeof(ProblemDetails))]
         public IActionResult GetAdvertisement(Guid id, bool additionalFields)
         {
-            var advertisement = _dataManager.GetItemById(id, additionalFields);
+            var advertisement = _service.GetItemById(id, additionalFields);
 
             if (advertisement != null && advertisement.Id == id)
             {
@@ -73,7 +74,7 @@ namespace adAPI.Controllers
 
             if (validResult.IsValid)
             {
-                _dataManager.AddItem(newAdvertisement);
+                _service.AddItem(newAdvertisement);
                 return CreatedAtAction(nameof(PostAdvertisement), newAdvertisement.Id);
             }
 
