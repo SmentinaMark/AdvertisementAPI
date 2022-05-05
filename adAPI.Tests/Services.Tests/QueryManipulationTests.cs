@@ -18,7 +18,7 @@ namespace adAPI.Tests.Services.Tests
             AdvertisementMockData data = new AdvertisementMockData();
             QueryManipulation manipulation = new QueryManipulation();
 
-            var parameters = data.SetCollectionParamatersWithSearch("Fir");
+            var parameters = data.SetCollectionParamaters(search:"Fir");
             var fakeData = data.GetAdvertisements();
 
             ///Act
@@ -35,7 +35,7 @@ namespace adAPI.Tests.Services.Tests
             AdvertisementMockData data = new AdvertisementMockData();
             QueryManipulation manipulation = new QueryManipulation();
 
-            var parameters = data.SetCollectionParamatersWithSearch("kek");
+            var parameters = data.SetCollectionParamaters(search:"kek");
             var fakeData = data.GetAdvertisements();
 
             ///Act
@@ -55,7 +55,7 @@ namespace adAPI.Tests.Services.Tests
             var firstPageParams = data.SetCollectionParamaters(page:1 );
             var secondPageParams = data.SetCollectionParamaters(page:2 );
 
-            var fakeData = data.GetAdvertisementsForPaging();
+            var fakeData = data.GetAdvertisements();
 
             ///Act
             var resultFirstPage = manipulation.PagingItems(firstPageParams, fakeData.AsQueryable());

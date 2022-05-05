@@ -6,6 +6,7 @@ namespace adAPI.Tests.MockData
 {
     public class AdvertisementMockData
     {
+
         List<Advertisement> advertisements = new List<Advertisement>
         {
                 new Advertisement
@@ -24,26 +25,6 @@ namespace adAPI.Tests.MockData
                     Price = 14124,
                     CreationDate = DateTime.Now
                 },
-         };
-
-        List<Advertisement> advertisementsForPaging = new List<Advertisement>
-        {
-                new Advertisement
-                {
-                    Id = Guid.Parse("01C19C72-31C3-4A85-85BD-CA8F99A10E11"),
-                    Title = "01C19C72-31C3-4A85-85BD-CA8F99A10E11",
-                    Description = "FirstAdDescription",
-                    Price = 125,
-                    CreationDate = DateTime.Now
-                },
-                new Advertisement
-                {
-                    Id = Guid.NewGuid(),
-                    Title = "SecondAdTitle",
-                    Description = "SecondAdDescription",
-                    Price = 14124,
-                    CreationDate = DateTime.Now
-                },
                 new Advertisement
                 {
                     Id = Guid.NewGuid(),
@@ -126,10 +107,6 @@ namespace adAPI.Tests.MockData
                 },
          };
 
-        public List<Advertisement> GetAdvertisementsForPaging()
-        {
-            return advertisementsForPaging;
-        }
         public List<Advertisement> GetAdvertisements()
         {
             return advertisements;
@@ -142,56 +119,22 @@ namespace adAPI.Tests.MockData
 
         public Advertisement GetSingleAdvertisement()
         {
-            return new Advertisement
-            {
-                Id = Guid.Parse("01C19C72-31C3-4A85-85BD-CA8F99A10E18"),
-                Title = "FirstAdTitle",
-                Description = "FirstAdDescription",
-                Price = 125,
-                CreationDate = DateTime.Now
-            };
+            return advertisements[0];
         }
 
-        public Advertisement AddCorrectAdvertisement()
-        {
-            Advertisement advertisement = new Advertisement
-            {
-                Id = Guid.NewGuid(),
-                Title = "ThirdAdTitle",
-                Description = "ThirdAdDescription",
-                Price = 125,
-                CreationDate = DateTime.Now
-
-            };
-           
-            return advertisement;
-        }
-
-        public Advertisement AddEmptyAdvertisement()
+        public Advertisement GetEmptyAdvertisement()
         {
             return new Advertisement();
         }
 
-        public CollectionQueryParameters SetCollectionParamaters(int page)
+        public CollectionQueryParameters SetCollectionParamaters(int page = 1, int pageSize = 10, string search = "", string sort = "")
         {
             CollectionQueryParameters parameters = new CollectionQueryParameters
             {
                 PageNumber = page,
-                PageSize = 10,
-                Search = "",
-                Sort = ""
-            };
-            return parameters;
-        }
-
-        public CollectionQueryParameters SetCollectionParamatersWithSearch(string search)
-        {
-            CollectionQueryParameters parameters = new CollectionQueryParameters
-            {
-                PageNumber = 1,
-                PageSize = 10,
+                PageSize = pageSize,
                 Search = search,
-                Sort = ""
+                Sort = sort
             };
             return parameters;
         }
