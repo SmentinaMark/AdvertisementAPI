@@ -119,14 +119,7 @@ namespace adAPI.Tests.MockData
 
         public Advertisement GetSingleAdvertisement()
         {
-            return new Advertisement
-            {
-                Id = Guid.Parse("01C19C72-31C3-4A85-85BD-CA8F99A10E18"),
-                Title = "FirstAdTitle",
-                Description = "FirstAdDescription",
-                Price = 125,
-                CreationDate = DateTime.Now
-            };
+            return advertisements[0];
         }
 
         public Advertisement GetEmptyAdvertisement()
