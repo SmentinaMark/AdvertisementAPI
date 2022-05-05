@@ -24,7 +24,7 @@ namespace adAPI.Tests
             mockRepository.Setup(_ => _.GetItems()).Returns(data.GetAdvertisements());
 
             var mockQueryManipulation = new Mock<IQueryManipulation>();
-            mockQueryManipulation.Setup(_ => _.PagingItems(It.IsAny<CollectionQueryParameters>(), 
+            mockQueryManipulation.Setup(_ => _.PagingItems(It.IsAny<CollectionQueryParameters>(),
                 It.IsAny<IQueryable<Advertisement>>())).Returns(data.GetAdvertisements().AsQueryable());
             mockQueryManipulation.Setup(_ => _.SortItems(It.IsAny<CollectionQueryParameters>(),
                It.IsAny<IQueryable<Advertisement>>())).Returns(data.GetAdvertisements().AsQueryable());
@@ -77,7 +77,7 @@ namespace adAPI.Tests
             var controller = new AdvertisementController(service);
 
             ///Act
-            var result = controller.GetAdvertisement(Guid.Parse("01C19C72-31C3-4A85-85BD-CA8F99A10E18"), It.IsAny<bool>());
+            var result = controller.GetAdvertisement(Guid.Parse("01C19C72-31C3-4A85-85BD-CA8F99A10E11"), It.IsAny<bool>());
 
             ///Assert
             result.GetType().Should().Be(typeof(OkObjectResult));
