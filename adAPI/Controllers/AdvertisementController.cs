@@ -16,12 +16,12 @@ namespace adAPI.Controllers
     [ApiController]
     public class AdvertisementController : ControllerBase
     {
-        private readonly AdvertisementService _service;
+        private readonly IAdvertisementService _service;
         private readonly AdvertisementValidator _validator;
 
         private readonly IMapper _mapper;
 
-        public AdvertisementController(AdvertisementService service, IMapper mapper)
+        public AdvertisementController(IAdvertisementService service, IMapper mapper)
         {
             _validator = new AdvertisementValidator();
             _service = service ?? throw new ArgumentNullException(nameof(service));
