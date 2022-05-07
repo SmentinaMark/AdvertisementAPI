@@ -33,7 +33,7 @@ namespace adAPI.Controllers
         /// </summary>
         /// <param name="queryParameters">Object with query parameters for view finished collection.</param>
         [HttpGet]
-        [SwaggerResponse((int)HttpStatusCode.OK)]
+        [SwaggerResponse((int)HttpStatusCode.OK, type: typeof(GetAdvertisements))]
         [SwaggerResponse((int)HttpStatusCode.NoContent)]
         public IActionResult GetAdvertisements([FromQuery] CollectionQueryParameters queryParameters)
         {
@@ -54,8 +54,8 @@ namespace adAPI.Controllers
         /// <param name="id">Item Id.</param>
         /// <param name="additionalFields">Flag for adding additional fields.</param>
         [HttpGet("{id}")]
-        [SwaggerResponse((int)HttpStatusCode.OK)]
-        [SwaggerResponse((int)HttpStatusCode.NotFound, type: typeof(ProblemDetails))]
+        [SwaggerResponse((int)HttpStatusCode.OK, type: typeof(GetSingleAdvertisement))]
+        [SwaggerResponse((int)HttpStatusCode.NotFound, type: typeof(GetSingleAdvertisement))]
         public IActionResult GetAdvertisement(Guid id, bool additionalFields)
         {
             var advertisement = _service.GetItemById(id, additionalFields);
@@ -74,8 +74,8 @@ namespace adAPI.Controllers
         /// </summary>
         /// <param name="newAdvertisement">Object to adding into the Db.</param>
         [HttpPost]
-        [SwaggerResponse((int)HttpStatusCode.Created)]
-        [SwaggerResponse((int)HttpStatusCode.BadRequest, type: typeof(ProblemDetails))]
+        [SwaggerResponse((int)HttpStatusCode.Created, type: typeof(CreateAdvertisement))]
+        [SwaggerResponse((int)HttpStatusCode.BadRequest, type: typeof(CreateAdvertisement))]
         public IActionResult PostAdvertisement(Advertisement newAdvertisement)
         {
             var validResult = _validator.Validate(newAdvertisement);
