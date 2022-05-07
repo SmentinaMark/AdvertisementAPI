@@ -17,7 +17,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddScoped<IRepository<Advertisement>, AdvertisementRepository>();
 builder.Services.AddScoped<IQueryManipulation, QueryManipulation>();
-builder.Services.AddScoped<AdvertisementService>();
+builder.Services.AddScoped<IAdvertisementService, AdvertisementService>();
 
 builder.Services.AddAutoMapper(typeof(AppMapperProfile));
 
