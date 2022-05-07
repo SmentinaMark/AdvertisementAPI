@@ -4,6 +4,7 @@ using adAPI.Data.Repositories;
 using adAPI.Models;
 using adAPI.Services;
 using adAPI.Tests.MockData;
+using AutoMapper;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -20,6 +21,7 @@ namespace adAPI.Tests
         {
             ///Arrange
             AdvertisementMockData data = new AdvertisementMockData();
+            var mockMapper = new Mock<IMapper>();
             var mockRepository = new Mock<IRepository<Advertisement>>();
             mockRepository.Setup(_ => _.GetItems()).Returns(data.GetAdvertisements());
 
@@ -30,7 +32,7 @@ namespace adAPI.Tests
                It.IsAny<IQueryable<Advertisement>>())).Returns(data.GetAdvertisements().AsQueryable());
 
             var service = new AdvertisementService(mockRepository.Object, mockQueryManipulation.Object);
-            var controller = new AdvertisementController(service);
+            var controller = new AdvertisementController(service, mockMapper.Object);
 
             ///Act
             var result = controller.GetAdvertisements(data.SetCollectionParamaters());
@@ -44,6 +46,7 @@ namespace adAPI.Tests
         {
             ///Arrange
             AdvertisementMockData data = new AdvertisementMockData();
+            var mockMapper = new Mock<IMapper>();
             var mockRepository = new Mock<IRepository<Advertisement>>();
             mockRepository.Setup(_ => _.GetItems()).Returns(data.GetEmptyAdvertisements());
 
@@ -54,7 +57,7 @@ namespace adAPI.Tests
                It.IsAny<IQueryable<Advertisement>>())).Returns(data.GetEmptyAdvertisements().AsQueryable());
 
             var service = new AdvertisementService(mockRepository.Object, mockQueryManipulation.Object);
-            var controller = new AdvertisementController(service);
+            var controller = new AdvertisementController(service, mockMapper.Object);
 
             ///Act
             var result = controller.GetAdvertisements(data.SetCollectionParamaters());
@@ -69,12 +72,13 @@ namespace adAPI.Tests
         {
             ///Arrange
             AdvertisementMockData data = new AdvertisementMockData();
+            var mockMapper = new Mock<IMapper>();
             var mockRepository = new Mock<IRepository<Advertisement>>();
             mockRepository.Setup(_ => _.GetItemById(It.IsAny<Guid>())).Returns(data.GetSingleAdvertisement());
 
             var mockQueryManipulation = new Mock<IQueryManipulation>();
             var service = new AdvertisementService(mockRepository.Object, mockQueryManipulation.Object);
-            var controller = new AdvertisementController(service);
+            var controller = new AdvertisementController(service, mockMapper.Object);
 
             ///Act
             var result = controller.GetAdvertisement(Guid.Parse("01C19C72-31C3-4A85-85BD-CA8F99A10E11"), It.IsAny<bool>());
@@ -88,12 +92,13 @@ namespace adAPI.Tests
         {
             ///Arrange
             AdvertisementMockData data = new AdvertisementMockData();
+            var mockMapper = new Mock<IMapper>();
             var mockRepository = new Mock<IRepository<Advertisement>>();
             mockRepository.Setup(_ => _.GetItemById(It.IsAny<Guid>())).Returns(data.GetSingleAdvertisement());
 
             var mockQueryManipulation = new Mock<IQueryManipulation>();
             var service = new AdvertisementService(mockRepository.Object, mockQueryManipulation.Object);
-            var controller = new AdvertisementController(service);
+            var controller = new AdvertisementController(service, mockMapper.Object);
 
             ///Act
             var result = controller.GetAdvertisement(Guid.Empty, It.IsAny<bool>());
@@ -108,12 +113,13 @@ namespace adAPI.Tests
         {
             ///Arrange
             AdvertisementMockData data = new AdvertisementMockData();
+            var mockMapper = new Mock<IMapper>();
             var mockRepository = new Mock<IRepository<Advertisement>>();
             mockRepository.Setup(_ => _.AddItem(It.IsAny<Advertisement>()));
 
             var mockQueryManipulation = new Mock<IQueryManipulation>();
             var service = new AdvertisementService(mockRepository.Object, mockQueryManipulation.Object);
-            var controller = new AdvertisementController(service);
+            var controller = new AdvertisementController(service, mockMapper.Object);
 
             ///Act
             var result = controller.PostAdvertisement(data.GetSingleAdvertisement());
@@ -127,18 +133,19 @@ namespace adAPI.Tests
         {
             ///Arrange
             AdvertisementMockData data = new AdvertisementMockData();
+            var mockMapper = new Mock<IMapper>();
             var mockRepository = new Mock<IRepository<Advertisement>>();
             mockRepository.Setup(_ => _.AddItem(It.IsAny<Advertisement>()));
 
             var mockQueryManipulation = new Mock<IQueryManipulation>();
             var service = new AdvertisementService(mockRepository.Object, mockQueryManipulation.Object);
-            var controller = new AdvertisementController(service);
+            var controller = new AdvertisementController(service, mockMapper.Object);
 
             ///Act
             var result = controller.PostAdvertisement(data.GetEmptyAdvertisement());
 
             ///Assert
-            result.GetType().Should().Be(typeof(BadRequestObjectResult));
+            result.GetType().Should().Be(typeof(BadRequestResult));
         }
     }
 }
