@@ -1,6 +1,8 @@
-﻿using adAPI.Models;
+﻿using adAPI.Contracts;
+using adAPI.Models;
 using adAPI.Services;
 using adAPI.Validation;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Net;
@@ -16,10 +18,14 @@ namespace adAPI.Controllers
     {
         private readonly AdvertisementService _service;
         private readonly AdvertisementValidator _validator;
-        public AdvertisementController(AdvertisementService service)
+
+        private readonly IMapper _mapper;
+
+        public AdvertisementController(AdvertisementService service, IMapper mapper)
         {
-            _service = service ?? throw new ArgumentNullException(nameof(service));
             _validator = new AdvertisementValidator();
+            _service = service ?? throw new ArgumentNullException(nameof(service));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
         /// <summary>
@@ -37,7 +43,9 @@ namespace adAPI.Controllers
                 return NoContent();
             }
 
-            return Ok(advertisements);
+            var mappedAdvertisements = _mapper.Map<List<GetAdvertisements>>(advertisements);
+
+            return Ok(mappedAdvertisements);
         }
 
         /// <summary>
@@ -54,7 +62,8 @@ namespace adAPI.Controllers
 
             if (advertisement != null && advertisement.Id == id)
             {
-                return Ok(advertisement);
+                var mappedAdvertisement = _mapper.Map<GetSingleAdvertisement>(advertisement);
+                return Ok(mappedAdvertisement);
             }
 
             return NotFound();
@@ -74,10 +83,12 @@ namespace adAPI.Controllers
             if (validResult.IsValid)
             {
                 _service.AddItem(newAdvertisement);
-                return CreatedAtAction(nameof(PostAdvertisement), newAdvertisement.Id);
+
+                var mappedAdvertisement = _mapper.Map<CreateAdvertisement>(newAdvertisement);
+                return CreatedAtAction(nameof(PostAdvertisement), mappedAdvertisement);
             }
 
-            return BadRequest(newAdvertisement.Id);
+            return BadRequest();
         }
     }
 }
