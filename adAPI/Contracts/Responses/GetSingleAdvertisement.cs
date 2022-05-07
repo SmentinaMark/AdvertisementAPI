@@ -35,7 +35,7 @@ namespace adAPI.Contracts
         }
 
         /// <summary>
-        /// Array of items returns deseriazided items from _Images and sets serialized value into _Image.
+        /// Array of items returns deseriazided items from Images and sets serialized value into Image.
         /// </summary>
 
         public string[] _Images
@@ -51,7 +51,7 @@ namespace adAPI.Contracts
         }
 
         /// <summary>
-        /// This field is bind with the db column.
+        /// This field is bind with the field from AdvertisementModel.
         /// </summary>
         [JsonIgnore]
         public string Images { get; set; } = string.Empty;
