@@ -10,11 +10,5 @@ namespace adAPI.Data
         {
 
         }
-
-        protected override void OnModelCreating(ModelBuilder ModelBuilder)
-        {
-            ModelBuilder.Entity<Advertisement>()
-            .Property(b => b._Images).HasColumnName("Images");
-        }
     }
 }
