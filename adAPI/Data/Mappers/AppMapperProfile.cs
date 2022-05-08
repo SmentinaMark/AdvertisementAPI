@@ -1,4 +1,5 @@
 ﻿using adAPI.Contracts;
+using adAPI.Contracts.Requests;
 using adAPI.Models;
 using AutoMapper;
 
@@ -8,10 +9,17 @@ namespace adAPI.Data.Mappers
     {
         public AppMapperProfile()
         {
-            CreateMap<Advertisement, GetAdvertisements>();
-            CreateMap<Advertisement, GetSingleAdvertisement>().ForMember(x => x._Images, opt => opt.Ignore()); ;
+            #region Responses
+            CreateMap<Advertisement, GetAdvertisements>()
+               .ForMember(d => d._Images, opts => opts.MapFrom(s => s.Images.ToArray()));
+            CreateMap<Advertisement, GetSingleAdvertisement>().ForMember(x => x._Images, opt => opt.Ignore());
+            CreateMap<Advertisement, GetCreateAdvertisement>();
+            #endregion
 
-            CreateMap<Advertisement, CreateAdvertisement>();
+            #region Requests
+            CreateMap<CreateAdvertisement, Advertisement>()
+                .ForMember(d => d.Images, opts => opts.MapFrom(s => String.Format("[\"{0}\"]", String.Join("\",\"", s._Images))));
+            #endregion
         }
     }
 }
