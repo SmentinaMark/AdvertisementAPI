@@ -1,4 +1,5 @@
-﻿using adAPI.Models;
+﻿using adAPI.Contracts.Requests;
+using adAPI.Models;
 using System;
 using System.Collections.Generic;
 
@@ -107,6 +108,106 @@ namespace adAPI.Tests.MockData
                 },
          };
 
+        List<CreateAdvertisement> createAdvertisements = new List<CreateAdvertisement>
+        {
+                new CreateAdvertisement
+                {
+                    Id = Guid.Parse("01C19C72-31C3-4A85-85BD-CA8F99A10E11"),
+                    Title = "01C19C72-31C3-4A85-85BD-CA8F99A10E11",
+                    Description = "FirstAdDescription",
+                    Price = 125,
+                    CreationDate = DateTime.Now
+                },
+                new CreateAdvertisement
+                {
+                    Id = Guid.NewGuid(),
+                    Title = "SecondAdTitle",
+                    Description = "SecondAdDescription",
+                    Price = 14124,
+                    CreationDate = DateTime.Now
+                },
+                new CreateAdvertisement
+                {
+                    Id = Guid.NewGuid(),
+                    Title = "SecondAdTitle",
+                    Description = "SecondAdDescription",
+                    Price = 14124,
+                    CreationDate = DateTime.Now
+                },
+                new CreateAdvertisement
+                {
+                    Id = Guid.NewGuid(),
+                    Title = "SecondAdTitle",
+                    Description = "SecondAdDescription",
+                    Price = 14124,
+                    CreationDate = DateTime.Now
+                },
+                new CreateAdvertisement
+                {
+                    Id = Guid.NewGuid(),
+                    Title = "SecondAdTitle",
+                    Description = "SecondAdDescription",
+                    Price = 14124,
+                    CreationDate = DateTime.Now
+                },
+                new CreateAdvertisement
+                {
+                    Id = Guid.NewGuid(),
+                    Title = "SecondAdTitle",
+                    Description = "SecondAdDescription",
+                    Price = 14124,
+                    CreationDate = DateTime.Now
+                },
+                new CreateAdvertisement
+                {
+                    Id = Guid.NewGuid(),
+                    Title = "SecondAdTitle",
+                    Description = "SecondAdDescription",
+                    Price = 14124,
+                    CreationDate = DateTime.Now
+                },
+                new CreateAdvertisement
+                {
+                    Id = Guid.NewGuid(),
+                    Title = "SecondAdTitle",
+                    Description = "SecondAdDescription",
+                    Price = 14124,
+                    CreationDate = DateTime.Now
+                },
+                new CreateAdvertisement
+                {
+                    Id = Guid.NewGuid(),
+                    Title = "SecondAdTitle",
+                    Description = "SecondAdDescription",
+                    Price = 14124,
+                    CreationDate = DateTime.Now
+                },
+                new CreateAdvertisement
+                {
+                    Id = Guid.NewGuid(),
+                    Title = "SecondAdTitle",
+                    Description = "SecondAdDescription",
+                    Price = 14124,
+                    CreationDate = DateTime.Now
+                },
+                new CreateAdvertisement
+                {
+                    Id = Guid.NewGuid(),
+                    Title = "SecondAdTitle",
+                    Description = "SecondAdDescription",
+                    Price = 14124,
+                    CreationDate = DateTime.Now
+                },
+                new CreateAdvertisement
+                {
+                    Id = Guid.NewGuid(),
+                    Title = "SecondAdTitle",
+                    Description = "SecondAdDescription",
+                    Price = 14124,
+                    CreationDate = DateTime.Now
+                },
+         };
+
         public List<Advertisement> GetAdvertisements()
         {
             return advertisements;
@@ -121,10 +222,19 @@ namespace adAPI.Tests.MockData
         {
             return advertisements[0];
         }
+        public CreateAdvertisement GetCreateSingleAdvertisement()
+        {
+            return createAdvertisements[0];
+        }
 
         public Advertisement GetEmptyAdvertisement()
         {
             return new Advertisement();
+        }
+
+        public CreateAdvertisement GetCreateEmptyAdvertisement()
+        {
+            return new CreateAdvertisement();
         }
 
         public CollectionQueryParameters SetCollectionParamaters(int page = 1, int pageSize = 10, string search = "", string sort = "")

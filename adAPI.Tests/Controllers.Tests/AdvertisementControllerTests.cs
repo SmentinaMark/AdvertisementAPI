@@ -9,6 +9,7 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
@@ -109,31 +110,12 @@ namespace adAPI.Tests
         }
 
         [Fact]
-        public void PostAdvertisement_ShouldReturn201()
-        {
-            ///Arrange
-            AdvertisementMockData data = new AdvertisementMockData();
-            var mockMapper = new Mock<IMapper>();
-            var mockRepository = new Mock<IRepository<Advertisement>>();
-            mockRepository.Setup(_ => _.AddItem(It.IsAny<Advertisement>()));
-
-            var mockQueryManipulation = new Mock<IQueryManipulation>();
-            var service = new AdvertisementService(mockRepository.Object, mockQueryManipulation.Object);
-            var controller = new AdvertisementController(service, mockMapper.Object);
-
-            ///Act
-            var result = controller.PostAdvertisement(data.GetSingleAdvertisement());
-
-            ///Assert
-            result.GetType().Should().Be(typeof(CreatedAtActionResult));
-        }
-
-        [Fact]
         public void PostAdvertisement_ShouldReturn400()
         {
             ///Arrange
             AdvertisementMockData data = new AdvertisementMockData();
             var mockMapper = new Mock<IMapper>();
+
             var mockRepository = new Mock<IRepository<Advertisement>>();
             mockRepository.Setup(_ => _.AddItem(It.IsAny<Advertisement>()));
 
@@ -142,7 +124,8 @@ namespace adAPI.Tests
             var controller = new AdvertisementController(service, mockMapper.Object);
 
             ///Act
-            var result = controller.PostAdvertisement(data.GetEmptyAdvertisement());
+            ///
+            var result = controller.PostAdvertisement(data.GetCreateEmptyAdvertisement());
 
             ///Assert
             result.GetType().Should().Be(typeof(BadRequestResult));
