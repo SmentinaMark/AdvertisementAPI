@@ -22,7 +22,11 @@ builder.Services.AddScoped<IAdvertisementService, AdvertisementService>();
 builder.Services.AddAutoMapper(typeof(AppMapperProfile));
 
 builder.Services.AddControllers()
-    .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
+
+    .AddNewtonsoftJson(options =>
+    {
+        options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Serialize;
+    })
     .AddFluentValidation(fv =>
     {
         fv.ImplicitlyValidateChildProperties = true;

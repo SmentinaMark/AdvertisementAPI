@@ -1,4 +1,5 @@
-﻿using adAPI.Models;
+﻿using adAPI.Contracts.Requests;
+using adAPI.Models;
 
 namespace adAPI.Services
 {

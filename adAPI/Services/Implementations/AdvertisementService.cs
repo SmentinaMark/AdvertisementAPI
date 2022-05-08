@@ -10,8 +10,8 @@ namespace adAPI.Services
         private IQueryManipulation _queryManipulation;
         public AdvertisementService(IRepository<Advertisement> repository, IQueryManipulation queryManipulation)
         {
-            _repository = repository;
-            _queryManipulation = queryManipulation;
+            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            _queryManipulation = queryManipulation ?? throw new ArgumentNullException(nameof(queryManipulation));
         }
 
         /// <summary>
