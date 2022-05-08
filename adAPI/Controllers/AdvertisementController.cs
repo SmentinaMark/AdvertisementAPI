@@ -1,4 +1,5 @@
 ﻿using adAPI.Contracts;
+using adAPI.Contracts.Requests;
 using adAPI.Models;
 using adAPI.Services;
 using adAPI.Validation;
@@ -74,17 +75,19 @@ namespace adAPI.Controllers
         /// </summary>
         /// <param name="newAdvertisement">Object to adding into the Db.</param>
         [HttpPost]
-        [SwaggerResponse((int)HttpStatusCode.Created, type: typeof(CreateAdvertisement))]
-        [SwaggerResponse((int)HttpStatusCode.BadRequest, type: typeof(CreateAdvertisement))]
-        public IActionResult PostAdvertisement(Advertisement newAdvertisement)
+        [SwaggerResponse((int)HttpStatusCode.Created, type: typeof(GetCreateAdvertisement))]
+        [SwaggerResponse((int)HttpStatusCode.BadRequest, type: typeof(GetCreateAdvertisement))]
+        public IActionResult PostAdvertisement(CreateAdvertisement newAdvertisement)
         {
+
             var validResult = _validator.Validate(newAdvertisement);
 
             if (validResult.IsValid)
             {
-                _service.AddItem(newAdvertisement);
+                var creatMappedAdvertisement = _mapper.Map<Advertisement>(newAdvertisement);
+                _service.AddItem(creatMappedAdvertisement);
 
-                var mappedAdvertisement = _mapper.Map<CreateAdvertisement>(newAdvertisement);
+                var mappedAdvertisement = _mapper.Map<GetCreateAdvertisement>(creatMappedAdvertisement);
                 return CreatedAtAction(nameof(PostAdvertisement), mappedAdvertisement);
             }
 
