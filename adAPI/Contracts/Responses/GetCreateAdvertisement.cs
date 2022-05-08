@@ -1,6 +1,6 @@
 ﻿namespace adAPI.Contracts
 {
-    public class CreateAdvertisement
+    public class GetCreateAdvertisement
     {
         public Guid Id { get; set; }
     }
