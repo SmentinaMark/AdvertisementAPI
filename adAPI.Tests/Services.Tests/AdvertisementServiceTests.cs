@@ -1,7 +1,7 @@
 ﻿using adAPI.Contracts;
 using adAPI.Data;
 using adAPI.Data.Repositories;
-using adAPI.Models;
+using adAPI.Data.Models;
 using adAPI.Services;
 using adAPI.Tests.MockData;
 using FluentAssertions;

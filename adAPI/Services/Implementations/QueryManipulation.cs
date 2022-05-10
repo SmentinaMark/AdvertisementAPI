@@ -1,5 +1,5 @@
 ﻿using adAPI.Contracts;
-using adAPI.Models;
+using adAPI.Data.Models;
 
 namespace adAPI
 {

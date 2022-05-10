@@ -1,5 +1,4 @@
 ﻿using adAPI.Contracts.Requests;
-using adAPI.Models;
 using FluentValidation;
 
 namespace adAPI.Validation

@@ -1,6 +1,6 @@
 ﻿using adAPI.Contracts;
 using adAPI.Contracts.Requests;
-using adAPI.Models;
+using adAPI.Data.Models;
 using adAPI.Services;
 using adAPI.Validation;
 using AutoMapper;

@@ -1,6 +1,4 @@
-﻿using adAPI.Models;
-
-namespace adAPI.Data.Repositories
+﻿namespace adAPI.Data.Repositories
 {
     public interface IRepository<T>:IDisposable
     {

@@ -1,5 +1,4 @@
 ﻿using adAPI.Data.Models;
-using adAPI.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace adAPI.Data

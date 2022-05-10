@@ -1,5 +1,5 @@
 ﻿using adAPI.Contracts.Requests;
-using adAPI.Models;
+using adAPI.Data.Models;
 using System;
 using System.Collections.Generic;
 

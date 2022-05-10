@@ -3,7 +3,7 @@ using adAPI.Contracts;
 using adAPI.Data;
 using adAPI.Data.Mappers;
 using adAPI.Data.Repositories;
-using adAPI.Models;
+using adAPI.Data.Models;
 using adAPI.Services;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;

@@ -1,6 +1,7 @@
 ﻿using adAPI.Contracts;
+using adAPI.Data.Models;
 using adAPI.Data.Repositories;
-using adAPI.Models;
+
 
 namespace adAPI.Services
 {

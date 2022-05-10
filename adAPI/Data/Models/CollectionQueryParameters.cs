@@ -1,6 +1,6 @@
 ﻿using Swashbuckle.AspNetCore.Annotations;
 
-namespace adAPI.Models
+namespace adAPI.Data.Models
 {
     public class CollectionQueryParameters
     {
