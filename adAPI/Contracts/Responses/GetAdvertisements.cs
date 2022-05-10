@@ -35,12 +35,14 @@ namespace adAPI.Contracts
         {
             get
             {
-                return string.IsNullOrWhiteSpace(Images) ? Array.Empty<string>() : JsonConvert.DeserializeObject<string[]>(Images);
+                var result = string.IsNullOrWhiteSpace(Images) ? Array.Empty<string>() : JsonConvert.DeserializeObject<string[]>(Images.Replace("\\", "\\\\"));
+
+                return result;
             }
             set
             {
 
-                Images = JsonConvert.SerializeObject(value);
+                Images = value.ToString();
             }
         }
 
