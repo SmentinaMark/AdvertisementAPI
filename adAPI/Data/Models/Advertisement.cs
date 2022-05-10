@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace adAPI.Models
+namespace adAPI.Data.Models
 {
     public class Advertisement
     {
